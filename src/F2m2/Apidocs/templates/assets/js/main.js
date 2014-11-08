@@ -67,19 +67,20 @@ $(function(){
 	$('.api-explorer-form').on('submit', function(e){
 
 		e.preventDefault();
-		var self = $(this);
 
+		var self = $(this);
 		var uri = $(this).attr('uri');
 
-		var id = self.find('input[name="id"]').val();
-
-		uri = uri.replace('{id}', id);
+		$(':input', this).each(function() {
+			name = '{' + this.name + '}';
+   			uri = uri.replace(name, this.value);
+  		});
 
 		var url = api_base_url + uri;
 		var type = self.attr('type');
 		var data =	self.serialize();
 
-		console.log('type: ' + type);
+
 
 	 	$.ajax({
 			url: url,
