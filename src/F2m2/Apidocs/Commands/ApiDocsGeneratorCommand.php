@@ -65,7 +65,7 @@ class ApiDocsGeneratorCommand extends Command {
         $this->info(sprintf(
             "\n %s" . PHP_EOL,
             "Route::get('docs', function(){
-            	return View::make('docs" . $dot_prefix . ".index');
+            	return View::make('docs." . $dot_prefix . ".index');
             });"
         ));
 	}
