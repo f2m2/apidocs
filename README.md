@@ -3,15 +3,31 @@ f2m2/apidocs
 
 # Laravel API Docs Generator
 
-This Laravel package provides an API Documentation generator based upon your Routes and Controller Methods.
+This Laravel package provides an API Documentation generator based upon your Routes and Controller Method DocBlocks.
 
 - `apidocs:generate api/v1`
 
-NOTE: You must prefix your route with an API Version.  i.e. 'api/v1
+
+######NOTES:
+
+You must prefix your route with an API Version.  i.e. 'api/v1
 
     Route::group(['prefix' => 'api/v1'], function(){
 
     });
+
+#####DocBlock Example
+     /**
+     * Display the specified resource.
+     * GET /user/{id}
+     *
+     * @param  int  $id  The id of the User
+     * @return Response
+     */
+    public function show($id)
+    {
+               // Display User
+    }
 
 ## Installation
 
