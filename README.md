@@ -51,10 +51,6 @@ Run the `artisan` command from the Terminal to see the new `apidocs` command.
 
     php artisan apidocs:generate
 
-Next, update Composer from the Terminal:
-
-    composer update
-
 Once the packaage has installed, the final step is to add the service provider. Open `config/app.php`, and add a new item to the providers array.
 
     'F2m2\Generators\GeneratorsServiceProvider'
