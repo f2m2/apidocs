@@ -8,7 +8,7 @@
         }
     ],
     "homepage": "https://github.com/f2m2/apidocs",
-    "license": "WTFPL",
+    "license": "MIT",
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "4.2.*",
