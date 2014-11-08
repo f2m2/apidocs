@@ -89,8 +89,6 @@ $(function(){
 			data: data,
 			success: function(data, status, request)
 	        {
-	        	console.log(request);
-
 	        	body = JSON.stringify(JSON.parse(request.responseText), undefined, 4);
 	        	statusCode = request.statusCode().status;
 	        	statusText = request.statusCode().statusText;
@@ -100,11 +98,7 @@ $(function(){
 		    },
 	        error: function (response, status, request)
 	        {
-	        	console.log(response);
-
-	        	if (true) {};
-
-				body = JSON.stringify(JSON.parse(response.responseText), undefined, 4);
+	        	body = JSON.stringify(JSON.parse(response.responseText), undefined, 4);
 	        	statusCode = response.status;
 	        	statusText = response.statusText;
 	        	responseHeaders = response.getAllResponseHeaders();
