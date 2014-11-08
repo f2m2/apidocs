@@ -33,7 +33,7 @@ class ApiDocsGenerator {
         'Domain', 'URI', 'Name', 'Action', 'Before Filters', 'After Filters'
     );
 
-        /**f
+    /**
      * Create a new route command instance.
      *
      * @param  \Illuminate\Routing\Router  $router
@@ -47,25 +47,36 @@ class ApiDocsGenerator {
     }
 
 
+    /**
+     * Generates the API Documentation based upon a prefix
+     *
+     * @param  string $prefix
+     * @return void
+     */
+
     public function make($prefix)
     {
-
         $this->prefix = $prefix;
         $this->dotPrefix = str_replace('/', '.', $this->prefix);
 
         $this->routes = $this->getRoutes();
 
         if (count($this->routes) == 0) {
-            return false;
+            return;
         }
 
         $endpoints = $this->getEndpoints();
-
-        // create directory structure
         $this->generateDirectoryStructure();
         $this->generateHTMLCode($endpoints);
 
+        return;
     }
+
+    /**
+     * Returns an array of endpoints
+     *
+     * @return array
+     */
 
     protected function getEndpoints(){
 
@@ -96,6 +107,13 @@ class ApiDocsGenerator {
         return $this->getEndpointMethods($endpoints);
     }
 
+    /**
+     * Returns functions for the endpoints
+     *
+     * @param  $endpoints
+     * @return array
+     */
+
     protected function getEndpointMethods($endpoints){
 
         foreach ($this->routes as $route) {
@@ -124,6 +142,13 @@ class ApiDocsGenerator {
         return $endpoints;
     }
 
+    /**
+    * Returns the path for the view based upon View Type
+    *
+    * @param  $viewType
+    * @return array
+    */
+
     protected  function viewPathForType($viewType){
 
         $docs = 'docs/';
@@ -135,6 +160,13 @@ class ApiDocsGenerator {
 
         return app_path() . '/views/' . $viewType .'/' . $docs  . $this->prefix . '/';
     }
+
+    /**
+    * Generates the HTML Code from the templates and saves them
+    *
+    * @param  $endpoints
+    * @return void
+    */
 
     protected function generateHTMLCode($endpoints)
     {
@@ -162,17 +194,33 @@ class ApiDocsGenerator {
         $this->updatePrefixAndSaveTemplate('includes', Config::get('apidocs::config.introduction_template_path'));
 
         // let's generate the body
-
        $content = $this->createContentForTemplate($endpoints);
+
+
+       // Save the default layout
        $this->updateAndSaveDefaultLayoutTemplate($content);
 
     }
+
+    /**
+    * Copies template type from filepath to target
+    *
+    * @param  string $type, string $filepath
+    * @return void
+    */
 
     protected function copyAndSaveTemplate($type, $filepath)
     {
         $target = $this->viewPathForType($type) . basename($filepath);
         File::copy($filepath, $target);
     }
+
+    /**
+    *  Retrieves the content from the template and saves it to a new file
+    *
+    * @param  string $type, string $filepath
+    * @return void
+    */
 
     protected function updatePrefixAndSaveTemplate($type, $filepath)
     {
@@ -183,6 +231,13 @@ class ApiDocsGenerator {
         File::put($newPath, $content);
 
     }
+
+    /**
+    *  Saves the default layout with HTML content
+    *
+    * @param  string $content
+    * @return void
+    */
 
     protected function updateAndSaveDefaultLayoutTemplate($content){
 
@@ -200,6 +255,13 @@ class ApiDocsGenerator {
 
         File::put($newPath, $file);
     }
+
+    /**
+    *  Generates the directory structure for the API documentation
+    *
+    * @param  string $content
+    * @return void
+    */
 
     protected function generateDirectoryStructure()
     {
@@ -222,6 +284,14 @@ class ApiDocsGenerator {
 
     }
 
+    /**
+    *  Generates the assets directory
+    *  by copying the files from the template directory to a public diretory
+    *
+    * @param  string $content
+    * @return void
+    */
+
     private function generateAssetsDirectory()
     {
 
@@ -241,6 +311,13 @@ class ApiDocsGenerator {
          }
 
     }
+
+    /**
+    *  Generates the content for the templates
+    *
+    * @param  array $endpoints
+    * @return void
+    */
 
      private function createContentForTemplate($endpoints = array())
      {
