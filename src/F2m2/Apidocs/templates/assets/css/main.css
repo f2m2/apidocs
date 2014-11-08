@@ -112,6 +112,7 @@ hr {
     background: #232323;
     padding: 0;
     overflow: hidden;
+    overflow-y: auto;
 }
 #sidebar > .column-content {
     padding: 0;
