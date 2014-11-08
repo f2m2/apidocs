@@ -1,12 +1,14 @@
 {
     "name": "f2m2/apidocs",
-    "description": "",
+    "description": "Laravel API Document Generator",
     "authors": [
         {
             "name": "F2M2, Inc.",
             "email": "hello@f2m2.com"
         }
     ],
+    "homepage": "https://github.com/f2m2/apidocs",
+    "license": "WTFPL",
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "4.2.*",
