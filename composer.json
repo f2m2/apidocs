@@ -1,0 +1,21 @@
+{
+    "name": "f2m2/apidocs",
+    "description": "",
+    "authors": [
+        {
+            "name": "F2M2, Inc.",
+            "email": "hello@f2m2.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "phpdocumentor/reflection-docblock": "2.0.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "F2m2\\Apidocs": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

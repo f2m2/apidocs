@@ -1,0 +1,122 @@
+/* ==========================================================================
+   F2M2 Grid Styles
+   ========================================================================== */
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+}
+input[type=text], textarea, select {
+	background-color: white;
+    border : 1px solid #bbb;
+    width: 100%;
+    *margin-left:-3px;
+    *margin-right:-4px;
+    display: inline;   
+    padding: 0 5px;
+}
+
+input[type=text], select {
+	height: 32px;
+    *line-height:32px;
+}
+
+input[type=submit]{
+	background: #ddd;
+	padding: 10px 20px;
+	border: 0px;
+	box-shadow: 1px 1px 0 0 #bbb;
+}
+
+.container {
+	margin: 0 auto;
+}
+.row {
+	width: auto;
+}
+.row-pad {
+	padding: 20px 0 0 20px;
+}
+.row-pad:last-of-type {
+	padding-bottom: 20px;
+}
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+[class*='col-'] {
+	float: left;
+}
+[class*='col-'] {
+	padding-right: 20px;
+}
+[class*='col-']:last-of-type {
+	padding-right: 0;
+}
+.row-pad > [class*='col-']:last-of-type {
+	padding-right: 20px;
+}
+.column-content {
+	width: 100%;
+	padding: 20px;
+}
+.column-content .column-content {
+	padding: 0;
+}
+.col-1 {
+	width: 8.33%;
+}
+.col-2 {
+	width: 16.66%;
+}
+.col-3 {
+	width: 25%;
+}
+.col-4 {
+	width: 33.33%;
+}
+.col-5 {
+	width: 41.66%;
+}
+.col-6 {
+	width: 50%;
+}
+.col-7 {
+	width: 58.33%;
+}
+.col-8 {
+	width: 66.66%;
+}
+.col-9 {
+	width: 75%;
+}
+.col-10 {
+	width: 83.33%;
+}
+.col-11 {
+	width: 91.66%;
+}
+.col-12 {
+	width: 100%;
+}
+
+/* Tablet */
+@media (min-width: 321px) and (max-width: 767px) {
+	[class*='col-'] {
+		width: 100%;
+	}
+	.column-content .col-1,
+	.column-content .col-2,
+	.column-content .col-3,
+	.column-content .col-4 {
+		width: 50%;
+	}
+}
+
+/* Smartphone */
+@media only screen and (max-width: 320px) {
+	[class*='col-'] {
+		width: 100%;
+	}
+}
