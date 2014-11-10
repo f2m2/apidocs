@@ -357,7 +357,9 @@ class ApiDocsGenerator {
                     $sectionItem .= File::get(config::get('apidocs::config.body_content_template_path'));
                     $sectionItem = str_replace('{column-name}', $endpoint_name, $sectionItem);
                     $sectionItem = str_replace('{request-type}', $endpoint['method'], $sectionItem);
-                    $sectionItem = str_replace('{endpoint-description}', $endpoint['docBlock']->getShortDescription(),      $sectionItem);
+                    $sectionItem = str_replace('{endpoint-short-description}', $endpoint['docBlock']->getShortDescription(),      $sectionItem);
+                    $sectionItem = str_replace('{endpoint-long-description}', $endpoint['docBlock']->getLongDescription(),      $sectionItem);
+
 
                     $sectionItem = str_replace('{function}', $endpoint['function'], $sectionItem);
                     $sectionItem = str_replace('{request-uri}',  end($uri),  $sectionItem);
