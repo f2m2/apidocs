@@ -259,12 +259,20 @@ ul#navigation li.active > a {
     font-weight: 200;
     padding-right: 6px;
 }
-.endpoint-desc {
+.endpoint-short-desc{
     height: 40px;
     line-height: 40px;
     float: right;
     margin: 0;
     padding: 0 15px 0 0;
+}
+
+.endpoint-long-desc {
+    height: 40px;
+    line-height: 40px;
+    margin-top: 0;
+    margin-bottom: 10;
+    padding: 15px
 }
 .endpoint-url {
     padding: 15px;

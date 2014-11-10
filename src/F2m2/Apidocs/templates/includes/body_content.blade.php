@@ -5,9 +5,12 @@
                             <li><h2>{request-type}</h2></li>
                             <li><h3>{function}</h3></li>
                             <li>{request-uri}</li>
+                            <li><p class="endpoint-short-desc">{endpoint-short-description}</p></li>
                           </ul>
-                          <p class="endpoint-desc">{endpoint-description}</p>
                         </div>
+                       <!--  <div class="parameter-header">
+                             <p class="endpoint-long-desc">{endpoint-long-description}</p>
+                        </div> -->
                         <form class="api-explorer-form" uri="{request-uri}" type="{request-type}">
                           <div class="endpoint-paramenters">
                             <h4>Parameters</h4>
