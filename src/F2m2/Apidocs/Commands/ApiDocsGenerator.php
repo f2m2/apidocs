@@ -66,6 +66,7 @@ class ApiDocsGenerator {
         }
 
         $endpoints = $this->getEndpoints();
+
         $this->generateDirectoryStructure();
         $this->generateHTMLCode($endpoints);
 
@@ -93,6 +94,7 @@ class ApiDocsGenerator {
                     continue;
                 }
             }
+
 
             $reflector = new ReflectionClass($class);
             $docBlock = new DocBlock($reflector);
@@ -131,7 +133,13 @@ class ApiDocsGenerator {
             $reflector = new ReflectionClass($class);
             $docBlock = new DocBlock($reflector->getMethod($methodName));
 
+            $endpointNameCamelCase= $this->convertToSnakeCase($endpointName);
+            $endpointNameCamelCasePlural = $this->convertToSnakeCase($endpointName) . 's';
+
             $route['uri'] = str_replace('{' . strtolower($endpointName) . '}', '{id}', $route['uri']);
+            $route['uri'] = str_replace('{' . strtolower($endpointNameCamelCase) . '}', '{id}', $route['uri']);
+            $route['uri'] = str_replace('{' . strtolower($endpointNameCamelCasePlural) . '}', '{id}', $route['uri']);
+
             $route['function'] = $methodName;
             $route['docBlock'] = $docBlock;
 
@@ -141,6 +149,7 @@ class ApiDocsGenerator {
 
         return $endpoints;
     }
+
 
     /**
     * Returns the path for the view based upon View Type
@@ -194,7 +203,7 @@ class ApiDocsGenerator {
         $this->updatePrefixAndSaveTemplate('includes', Config::get('apidocs::config.introduction_template_path'));
 
         // let's generate the body
-       $content = $this->createContentForTemplate($endpoints);
+        $content = $this->createContentForTemplate($endpoints);
 
 
        // Save the default layout
@@ -327,7 +336,6 @@ class ApiDocsGenerator {
         $body           = '';
 
         foreach ($endpoints as $endpoint_name => $array) {
-
             $sectionItem    = '';
             $sectionHead    = '';
             $bodySection    = '';
@@ -359,7 +367,6 @@ class ApiDocsGenerator {
                     $sectionItem = str_replace('{request-type}', $endpoint['method'], $sectionItem);
                     $sectionItem = str_replace('{endpoint-short-description}', $endpoint['docBlock']->getShortDescription(),      $sectionItem);
                     $sectionItem = str_replace('{endpoint-long-description}', $endpoint['docBlock']->getLongDescription(),      $sectionItem);
-
 
                     $sectionItem = str_replace('{function}', $endpoint['function'], $sectionItem);
                     $sectionItem = str_replace('{request-uri}',  end($uri),  $sectionItem);
@@ -544,4 +551,22 @@ class ApiDocsGenerator {
     {
         return implode(', ', array_keys($route->afterFilters()));
     }
+
+    /**
+    * Converts a CamelCase String to Snake Case
+    *
+    * @param  string $input
+    * @return string
+    */
+
+    private function convertToSnakeCase($input)
+    {
+      preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
+      $ret = $matches[0];
+      foreach ($ret as &$match) {
+        $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+      }
+      return implode('_', $ret);
+    }
+
 }
