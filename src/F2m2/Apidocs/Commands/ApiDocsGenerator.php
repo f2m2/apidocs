@@ -137,6 +137,7 @@ class ApiDocsGenerator {
             $endpointNameCamelCasePlural = $this->convertToSnakeCase($endpointName) . 's';
 
             $route['uri'] = str_replace('{' . strtolower($endpointName) . '}', '{id}', $route['uri']);
+            $route['uri'] = str_replace('{' . strtolower($endpointName) . 's}', '{id}', $route['uri']);
             $route['uri'] = str_replace('{' . strtolower($endpointNameCamelCase) . '}', '{id}', $route['uri']);
             $route['uri'] = str_replace('{' . strtolower($endpointNameCamelCasePlural) . '}', '{id}', $route['uri']);
 
