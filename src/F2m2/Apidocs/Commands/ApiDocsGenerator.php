@@ -385,11 +385,18 @@ class ApiDocsGenerator {
                             $param_name = str_replace('$', '', $param_name);
                         }
 
+                        if ($param->getType() == 'array') {
+                            $param_name .= '[]';
+                        }
+
                         $parameters .= File::get(config::get('apidocs::config.parameters_template_path'));
                         $parameters = str_replace('{param-name}', $param_name , $parameters);
                         $parameters = str_replace('{param-type}',  $param->getType(),  $parameters);
                         $parameters = str_replace('{param-desc}',  $param->getDescription(),  $parameters);
 
+                        if(strtolower($param_name) == 'password'){
+                            $parameters = str_replace('type="text" class="parameter-value-text" name="' . $param_name . '"', 'type="password" class="parameter-value-text" name="'. $param_name . '"' , $parameters);
+                        }
                     }
 
                     if(strlen($parameters) > 0){

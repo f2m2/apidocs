@@ -5,8 +5,11 @@
                             <li><h2>{request-type}</h2></li>
                             <li><h3>{function}</h3></li>
                             <li>{request-uri}</li>
-                            <li><p class="endpoint-short-desc">{endpoint-short-description}</p></li>
                           </ul>
+                        </div>
+
+                        <div>
+                          <p class="endpoint-short-desc">{endpoint-short-description}</p>
                         </div>
                        <!--  <div class="parameter-header">
                              <p class="endpoint-long-desc">{endpoint-long-description}</p>

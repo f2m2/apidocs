@@ -262,8 +262,7 @@ ul#navigation li.active > a {
 .endpoint-short-desc{
     height: 40px;
     line-height: 40px;
-    float: right;
-    margin: 0;
+    margin: 10px;
     padding: 0 15px 0 0;
 }
 

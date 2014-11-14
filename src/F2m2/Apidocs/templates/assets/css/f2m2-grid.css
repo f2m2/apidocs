@@ -6,17 +6,17 @@
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 }
-input[type=text], textarea, select {
+input[type=text], input[type=password], textarea, select {
 	background-color: white;
     border : 1px solid #bbb;
     width: 100%;
     *margin-left:-3px;
     *margin-right:-4px;
-    display: inline;   
+    display: inline;
     padding: 0 5px;
 }
 
-input[type=text], select {
+input[type=text], input[type=password], select {
 	height: 32px;
     *line-height:32px;
 }
