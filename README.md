@@ -43,7 +43,7 @@ Next, update Composer from the Terminal:
 
 composer update --dev
 
-Once this operation completes, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
+Once the packaage has installed, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
 
     'F2m2\Apidocs\ApidocsServiceProvider',
 
@@ -51,13 +51,6 @@ Run the `artisan` command from the Terminal to see the new `apidocs` command.
 
     php artisan apidocs:generate
 
-Once the packaage has installed, the final step is to add the service provider. Open `config/app.php`, and add a new item to the providers array.
-
-    'F2m2\Generators\GeneratorsServiceProvider'
-
-Run the `artisan` command from the Terminal to see the new `apidocs` commands.
-
-    php artisan
 
 Create a copy of the API Docs Config by running this `artisan` command:
 
