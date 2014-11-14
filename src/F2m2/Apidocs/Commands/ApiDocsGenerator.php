@@ -385,7 +385,7 @@ class ApiDocsGenerator {
                             $param_name = str_replace('$', '', $param_name);
                         }
 
-                        if ($param->getType() == 'array') {
+                        if ($param->getType() == 'array' && strpos($param_name,'[') == false) {
                             $param_name .= '[]';
                         }
 
@@ -394,7 +394,7 @@ class ApiDocsGenerator {
                         $parameters = str_replace('{param-type}',  $param->getType(),  $parameters);
                         $parameters = str_replace('{param-desc}',  $param->getDescription(),  $parameters);
 
-                        if(strtolower($param_name) == 'password'){
+                        if(strpos(strtolower($param_name),'password') !== false ){
                             $parameters = str_replace('type="text" class="parameter-value-text" name="' . $param_name . '"', 'type="password" class="parameter-value-text" name="'. $param_name . '"' , $parameters);
                         }
                     }
