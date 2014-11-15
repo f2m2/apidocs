@@ -380,6 +380,7 @@ class ApiDocsGenerator {
                         $param_name = str_replace($param->getDescription(), '', $param->getContent());
                         $param_name = str_replace($param->getType(), '', $param_name);
                         $param_name = str_replace(' ', '', $param_name);
+                        $param_name = urldecode($param_name);
 
                         if($param_name[0] == '$'){
                             $param_name = str_replace('$', '', $param_name);
