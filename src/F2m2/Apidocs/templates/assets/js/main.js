@@ -119,6 +119,9 @@ $(function(){
 			self.append(responseStatus);
 			self.append(responseBody);
 			prettyPrint();
+
+			// refresh waypoints
+			$.waypoints('refresh');
 		}
 
 		function stringForResponse(title, className, text)
