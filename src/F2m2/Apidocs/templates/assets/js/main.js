@@ -69,6 +69,12 @@ $(function(){
 		e.preventDefault();
 
 		var self = $(this);
+
+		var btn = $(this).find('.generate-response-btn');
+		btn.val('Loading...');
+		btn.prop('disabled', true);
+		self.find('.request-uri, .response-status, .response-header, .response-body').remove();
+
 		var uri = $(this).attr('uri');
 
 		$(':input', this).each(function() {
@@ -94,6 +100,7 @@ $(function(){
 	        	statusText = request.statusCode().statusText;
 	        	responseHeaders = request.getAllResponseHeaders();
 	            updateResponse(self, url, body, statusCode, statusText, responseHeaders);
+	            enableBtn(btn);
 
 		    },
 	        error: function (response, status, request)
@@ -103,8 +110,15 @@ $(function(){
 	        	statusText = response.statusText;
 	        	responseHeaders = response.getAllResponseHeaders();
 	        	updateResponse(self,url, body, statusCode, statusText, responseHeaders);
+	        	enableBtn(btn);
 	        }
 		});
+
+		function enableBtn(btn){
+
+			btn.prop('disabled', false);
+			btn.val('Generate Example Response');
+		}
 
 		function updateResponse(self, requestUri, responseBody, statusCode, statusText, resonseHeaders)
 		{
