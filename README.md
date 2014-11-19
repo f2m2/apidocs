@@ -58,5 +58,5 @@ Create a copy of the API Docs Config by running this `artisan` command:
 License
 -------
 
-See [LICENSE.md](LICENSE) file.
+See [LICENSE](LICENSE.md) file.
 
