@@ -1,5 +1,3 @@
-f2m2/apidocs
-=======
 
 # Laravel API Docs Generator
 
@@ -55,3 +53,10 @@ Run the `artisan` command from the Terminal to see the new `apidocs` command.
 Create a copy of the API Docs Config by running this `artisan` command:
 
     php artisan config:publish f2m2/apidocs
+
+
+License
+-------
+
+See [LICENSE](LICENSE) file.
+
