@@ -23,7 +23,7 @@ class ApidocsServiceProvider extends ServiceProvider {
 	}
 
 	public function boot(){
-		$this->package('f2m2/apidocs');
+		$this->package('mhamlet/apidocs');
 	}
 
 	/**

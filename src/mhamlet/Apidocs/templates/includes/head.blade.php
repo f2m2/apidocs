@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/assets/docs/{prefix}/css/normalize.min.css">
 <link rel="stylesheet" href="/assets/docs/{prefix}/css/main.css">
 <link rel="stylesheet" href="/assets/docs/{prefix}/css/prettify.css">
-<link rel="stylesheet" href="/assets/docs/{prefix}/css/f2m2-grid.css">
+<link rel="stylesheet" href="/assets/docs/{prefix}/css/mhamlet-grid.css">
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
