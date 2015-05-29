@@ -10,16 +10,16 @@ return [
     */
 
     // head
-    'index_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/docs/index.blade.php',
-    'head_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/includes/head.blade.php',
-    'introduction_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/includes/introduction.blade.php',
-    'body_content_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/includes/body_content.blade.php',
-    'compile_content_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/includes/compile_content.blade.php',
-    'nav_items_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/includes/nav_items.blade.php',
-    'navigation_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/includes/navigation.blade.php',
-    'parameters_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/includes/parameters.blade.php',
-    'section_header_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/includes/section_header.blade.php',
-    'default_layout_template_path' => 'vendor/mhamlet/apidocs/src/F2m2/Apidocs/templates/layouts/default.blade.php',
+    'index_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/docs/index.blade.php',
+    'head_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/includes/head.blade.php',
+    'introduction_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/includes/introduction.blade.php',
+    'body_content_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/includes/body_content.blade.php',
+    'compile_content_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/includes/compile_content.blade.php',
+    'nav_items_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/includes/nav_items.blade.php',
+    'navigation_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/includes/navigation.blade.php',
+    'parameters_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/includes/parameters.blade.php',
+    'section_header_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/includes/section_header.blade.php',
+    'default_layout_template_path' => 'vendor/mhamlet/apidocs/src/mhamlet/Apidocs/templates/layouts/default.blade.php',
 
 
     /*

@@ -22,7 +22,7 @@ Next, update Composer from the Terminal:
 
 Once the packaage has installed, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
 
-    'F2m2\Apidocs\ApidocsServiceProvider',
+    'mhamlet\Apidocs\ApidocsServiceProvider',
 
 Run the `artisan` command from the Terminal to see the new `apidocs` command.
 

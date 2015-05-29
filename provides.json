@@ -1,5 +1,5 @@
 {
     "providers": [
-        "F2m2\Apidocs\ApidocsServiceProvider"
+        "mhamlet\Apidocs\ApidocsServiceProvider"
     ]
 }

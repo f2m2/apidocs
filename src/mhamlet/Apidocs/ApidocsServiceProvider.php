@@ -1,7 +1,7 @@
-<?php namespace F2m2\Apidocs;
+<?php namespace mhamlet\Apidocs;
 
 use Illuminate\Support\ServiceProvider;
-use F2m2\Apidocs\ApiDocsGeneratorCommand;
+use mhamlet\Apidocs\ApiDocsGeneratorCommand;
 
 class ApidocsServiceProvider extends ServiceProvider {
 
@@ -40,7 +40,7 @@ class ApidocsServiceProvider extends ServiceProvider {
 
 		$this->app['apidocs.generate'] = $this->app->share(function($app)
         {
-            return $this->app->make('F2m2\Apidocs\Commands\ApiDocsGeneratorCommand');
+            return $this->app->make('mhamlet\Apidocs\Commands\ApiDocsGeneratorCommand');
         });
 
 

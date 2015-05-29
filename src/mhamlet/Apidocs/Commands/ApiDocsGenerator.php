@@ -1,4 +1,4 @@
-<?php namespace F2m2\Apidocs\Commands;
+<?php namespace mhamlet\Apidocs\Commands;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
