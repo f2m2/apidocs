@@ -29,19 +29,21 @@ class ApiDocsGenerator {
      *
      * @var array
      */
-    protected $headers = array(
-        'Domain', 'URI', 'Name', 'Action', 'Before Filters', 'After Filters'
-    );
+    protected $headers
+        = array(
+            'Domain', 'URI', 'Name', 'Action', 'Before Filters', 'After Filters'
+        );
 
     /**
      * Create a new route command instance.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param  \Illuminate\Routing\Router $router
+     *
      * @return void
      */
-    public function __construct(Router $router)
-    {
-        $this->storagePath = storage_path(). '/templates/apidocs';
+    public function __construct(Router $router) {
+
+        $this->storagePath = storage_path() . '/templates/apidocs';
         $this->router = $router;
         $this->routes = $router->getRoutes();
     }
@@ -51,11 +53,12 @@ class ApiDocsGenerator {
      * Generates the API Documentation based upon a prefix
      *
      * @param  string $prefix
+     *
      * @return void
      */
 
-    public function make($prefix)
-    {
+    public function make($prefix) {
+
         $this->prefix = $prefix;
         $this->dotPrefix = str_replace('/', '.', $this->prefix);
 
@@ -79,7 +82,7 @@ class ApiDocsGenerator {
      * @return array
      */
 
-    protected function getEndpoints(){
+    protected function getEndpoints() {
 
         $endpoints = [];
 
@@ -90,7 +93,7 @@ class ApiDocsGenerator {
             if ($class == "Closure") {
 
                 // check for api/v1/docs
-                if(strpos($route['uri'], $this->prefix . '/docs') !== false){
+                if (strpos($route['uri'], $this->prefix . '/docs') !== false) {
                     continue;
                 }
             }
@@ -106,6 +109,7 @@ class ApiDocsGenerator {
             $endpoints["${class}"]['description'] = $docBlock->getShortDescription();
 
         }
+
         return $this->getEndpointMethods($endpoints);
     }
 
@@ -113,10 +117,11 @@ class ApiDocsGenerator {
      * Returns functions for the endpoints
      *
      * @param  $endpoints
+     *
      * @return array
      */
 
-    protected function getEndpointMethods($endpoints){
+    protected function getEndpointMethods($endpoints) {
 
         foreach ($this->routes as $route) {
 
@@ -133,7 +138,7 @@ class ApiDocsGenerator {
             $reflector = new ReflectionClass($class);
             $docBlock = new DocBlock($reflector->getMethod($methodName));
 
-            $endpointNameCamelCase= $this->convertToSnakeCase($endpointName);
+            $endpointNameCamelCase = $this->convertToSnakeCase($endpointName);
             $endpointNameCamelCasePlural = $this->convertToSnakeCase($endpointName) . 's';
 
             $route['uri'] = str_replace('{' . strtolower($endpointName) . '}', '{id}', $route['uri']);
@@ -153,33 +158,34 @@ class ApiDocsGenerator {
 
 
     /**
-    * Returns the path for the view based upon View Type
-    *
-    * @param  $viewType
-    * @return array
-    */
+     * Returns the path for the view based upon View Type
+     *
+     * @param  $viewType
+     *
+     * @return array
+     */
 
-    protected  function viewPathForType($viewType){
+    protected function viewPathForType($viewType) {
 
         $docs = 'docs/';
 
-        if ($viewType == 'docs')
-        {
+        if ($viewType == 'docs') {
             $docs = '';
         }
 
-        return app_path() . '/views/' . $viewType .'/' . $docs  . $this->prefix . '/';
+        return app_path() . '/views/' . $docs . $viewType . '/' . $this->prefix . '/';
     }
 
     /**
-    * Generates the HTML Code from the templates and saves them
-    *
-    * @param  $endpoints
-    * @return void
-    */
+     * Generates the HTML Code from the templates and saves them
+     *
+     * @param  $endpoints
+     *
+     * @return void
+     */
 
-    protected function generateHTMLCode($endpoints)
-    {
+    protected function generateHTMLCode($endpoints) {
+
         /*
         * Docs Index
         */
@@ -207,33 +213,35 @@ class ApiDocsGenerator {
         $content = $this->createContentForTemplate($endpoints);
 
 
-       // Save the default layout
-       $this->updateAndSaveDefaultLayoutTemplate($content);
+        // Save the default layout
+        $this->updateAndSaveDefaultLayoutTemplate($content);
 
     }
 
     /**
-    * Copies template type from filepath to target
-    *
-    * @param  string $type, string $filepath
-    * @return void
-    */
+     * Copies template type from filepath to target
+     *
+     * @param  string $type , string $filepath
+     *
+     * @return void
+     */
 
-    protected function copyAndSaveTemplate($type, $filepath)
-    {
+    protected function copyAndSaveTemplate($type, $filepath) {
+
         $target = $this->viewPathForType($type) . basename($filepath);
         File::copy($filepath, $target);
     }
 
     /**
-    *  Retrieves the content from the template and saves it to a new file
-    *
-    * @param  string $type, string $filepath
-    * @return void
-    */
+     *  Retrieves the content from the template and saves it to a new file
+     *
+     * @param  string $type , string $filepath
+     *
+     * @return void
+     */
 
-    protected function updatePrefixAndSaveTemplate($type, $filepath)
-    {
+    protected function updatePrefixAndSaveTemplate($type, $filepath) {
+
         $content = File::get($filepath);
         $content = str_replace('{prefix}', $this->dotPrefix, $content);
         $newPath = $this->viewPathForType($type) . basename($filepath);
@@ -243,13 +251,14 @@ class ApiDocsGenerator {
     }
 
     /**
-    *  Saves the default layout with HTML content
-    *
-    * @param  string $content
-    * @return void
-    */
+     *  Saves the default layout with HTML content
+     *
+     * @param  string $content
+     *
+     * @return void
+     */
 
-    protected function updateAndSaveDefaultLayoutTemplate($content){
+    protected function updateAndSaveDefaultLayoutTemplate($content) {
 
         $type = 'layouts';
 
@@ -267,22 +276,22 @@ class ApiDocsGenerator {
     }
 
     /**
-    *  Generates the directory structure for the API documentation
-    *
-    * @param  string $content
-    * @return void
-    */
+     *  Generates the directory structure for the API documentation
+     *
+     * @param  string $content
+     *
+     * @return void
+     */
 
-    protected function generateDirectoryStructure()
-    {
-        $docs_views_path = app_path(). '/views/docs/' . $this->prefix;
-        $docs_includes_path = app_path(). '/views/includes/docs/' . $this->prefix;
-        $docs_layouts_path = app_path(). '/views/layouts/docs/' . $this->prefix;
+    protected function generateDirectoryStructure() {
+
+        $docs_views_path = app_path() . '/views/docs/' . $this->prefix;
+        $docs_includes_path = app_path() . '/views/includes/docs/' . $this->prefix;
+        $docs_layouts_path = app_path() . '/views/layouts/docs/' . $this->prefix;
 
         $paths = [$docs_views_path, $docs_includes_path, $docs_layouts_path];
 
-        foreach ($paths as $path)
-        {
+        foreach ($paths as $path) {
             // delete current directory
             File::deleteDirectory($path, false);
 
@@ -295,53 +304,53 @@ class ApiDocsGenerator {
     }
 
     /**
-    *  Generates the assets directory
-    *  by copying the files from the template directory to a public diretory
-    *
-    * @param  string $content
-    * @return void
-    */
+     *  Generates the assets directory
+     *  by copying the files from the template directory to a public diretory
+     *
+     * @param  string $content
+     *
+     * @return void
+     */
 
-    private function generateAssetsDirectory()
-    {
+    private function generateAssetsDirectory() {
 
-        $destinationPath = public_path(). '/assets/docs/' . $this->dotPrefix;
+        $destinationPath = public_path() . '/assets/docs/' . $this->dotPrefix;
 
         // create assets directory
         File::makeDirectory($destinationPath, $mode = 0777, true, true);
 
-         $targetPath = Config::get('apidocs::config.assets_path');
-         $directories = ['css', 'img', 'js'];
+        $targetPath = Config::get('apidocs::config.assets_path');
+        $directories = ['css', 'img', 'js'];
 
-         foreach ($directories as $directory)
-         {
+        foreach ($directories as $directory) {
             $target = $targetPath . '/' . $directory;
             $dest = $destinationPath . '/' . $directory;
             File::copyDirectory($target, $dest);
-         }
+        }
 
     }
 
     /**
-    *  Generates the content for the templates
-    *
-    * @param  array $endpoints
-    * @return void
-    */
+     *  Generates the content for the templates
+     *
+     * @param  array $endpoints
+     *
+     * @return void
+     */
 
-     private function createContentForTemplate($endpoints = array())
-     {
-       if(!$endpoints) return FALSE;
+    private function createContentForTemplate($endpoints = array()) {
 
-        $navigation     = '';
-        $body           = '';
+        if (!$endpoints) return FALSE;
+
+        $navigation = '';
+        $body = '';
 
         foreach ($endpoints as $endpoint_name => $array) {
-            $sectionItem    = '';
-            $sectionHead    = '';
-            $bodySection    = '';
-            $navSections    = '';
-            $navItems       = '';
+            $sectionItem = '';
+            $sectionHead = '';
+            $bodySection = '';
+            $navSections = '';
+            $navItems = '';
 
             $navSections .= File::get(config::get('apidocs::config.navigation_template_path'));
             $navSections = str_replace('{column-title}', $endpoint_name, $navSections);
@@ -351,7 +360,7 @@ class ApiDocsGenerator {
             $sectionHead = str_replace('{main-description}', $endpoints[$endpoint_name]['description'], $sectionHead);
 
 
-            if(isset($array['methods'])) {
+            if (isset($array['methods'])) {
 
                 foreach ($array['methods'] as $key => $value) {
 
@@ -360,49 +369,49 @@ class ApiDocsGenerator {
                     $uri = explode(' ', $endpoint['uri']);
 
                     $navItems .= File::get(config::get('apidocs::config.nav_items_template_path'));
-                    $navItems = str_replace('{column-title}',  $endpoint_name, $navItems);
+                    $navItems = str_replace('{column-title}', $endpoint_name, $navItems);
                     $navItems = str_replace('{function}', $endpoint['function'], $navItems);
 
                     $sectionItem .= File::get(config::get('apidocs::config.body_content_template_path'));
                     $sectionItem = str_replace('{column-name}', $endpoint_name, $sectionItem);
                     $sectionItem = str_replace('{request-type}', $endpoint['method'], $sectionItem);
-                    $sectionItem = str_replace('{endpoint-short-description}', $endpoint['docBlock']->getShortDescription(),      $sectionItem);
-                    $sectionItem = str_replace('{endpoint-long-description}', $endpoint['docBlock']->getLongDescription(),      $sectionItem);
+                    $sectionItem = str_replace('{endpoint-short-description}', $endpoint['docBlock']->getShortDescription(), $sectionItem);
+                    $sectionItem = str_replace('{endpoint-long-description}', $endpoint['docBlock']->getLongDescription(), $sectionItem);
 
                     $sectionItem = str_replace('{function}', $endpoint['function'], $sectionItem);
-                    $sectionItem = str_replace('{request-uri}',  end($uri),  $sectionItem);
+                    $sectionItem = str_replace('{request-uri}', end($uri), $sectionItem);
 
-                    $params =  $endpoint['docBlock']->getTagsByName('param');
+                    $params = $endpoint['docBlock']->getTagsByName('param');
                     $parameters = '';
 
-                    foreach ($params as $param)
-                    {
+                    foreach ($params as $param) {
                         $param_name = str_replace($param->getDescription(), '', $param->getContent());
                         $param_name = str_replace($param->getType(), '', $param_name);
                         $param_name = str_replace(' ', '', $param_name);
                         $param_name = urldecode($param_name);
 
-                        if($param_name[0] == '$'){
+                        if ($param_name[0] == '$') {
                             $param_name = str_replace('$', '', $param_name);
                         }
 
-                        if ($param->getType() == 'array' && strpos($param_name,'[') == false) {
+                        if ($param->getType() == 'array' && strpos($param_name, '[') == false) {
                             $param_name .= '[]';
                         }
 
                         $parameters .= File::get(config::get('apidocs::config.parameters_template_path'));
-                        $parameters = str_replace('{param-name}', $param_name , $parameters);
-                        $parameters = str_replace('{param-type}',  $param->getType(),  $parameters);
-                        $parameters = str_replace('{param-desc}',  $param->getDescription(),  $parameters);
+                        $parameters = str_replace('{param-name}', $param_name, $parameters);
+                        $parameters = str_replace('{param-type}', $param->getType(), $parameters);
+                        $parameters = str_replace('{param-desc}', $param->getDescription(), $parameters);
 
-                        if(strpos(strtolower($param_name),'password') !== false ){
-                            $parameters = str_replace('type="text" class="parameter-value-text" name="' . $param_name . '"', 'type="password" class="parameter-value-text" name="'. $param_name . '"' , $parameters);
+                        if (strpos(strtolower($param_name), 'password') !== false) {
+                            $parameters = str_replace('type="text" class="parameter-value-text" name="' . $param_name . '"', 'type="password" class="parameter-value-text" name="' . $param_name . '"', $parameters);
                         }
                     }
 
-                    if(strlen($parameters) > 0){
+                    if (strlen($parameters) > 0) {
                         $sectionItem = str_replace('{request-parameters}', $parameters, $sectionItem); // insert the parameters into the section items
-                    } else {
+                    }
+                    else {
 
                         $sectionItem = str_replace('<h4>Parameters</h4>
                             <ul>
@@ -418,9 +427,10 @@ class ApiDocsGenerator {
 
                 }
 
-                $navSections = str_replace('{nav-items}', '<ul>'.$navItems.'</ul>', $navSections); // add the navigation items to the nav section
+                $navSections = str_replace('{nav-items}', '<ul>' . $navItems . '</ul>', $navSections); // add the navigation items to the nav section
 
-            } else {
+            }
+            else {
 
                 $navSections = str_replace('{nav-items}', '', $navSections); // add the navigation items to the nav section
             }
@@ -428,14 +438,14 @@ class ApiDocsGenerator {
             $navigation .= $navSections;
 
             $bodySection .= File::get(config::get('apidocs::config.compile_content_template_path'));
-            $bodySection = str_replace('{section-header}',   $sectionHead, $bodySection);
+            $bodySection = str_replace('{section-header}', $sectionHead, $bodySection);
             $bodySection = str_replace('{section-details}', $sectionItem, $bodySection);
 
-            $body        .= $bodySection;
+            $body .= $bodySection;
         }
 
         $data = array(
-            'navigation'   => $navigation,
+            'navigation' => $navigation,
             'body-content' => $body
         );
 
@@ -448,12 +458,11 @@ class ApiDocsGenerator {
      * @return array
      */
 
-    protected function getRoutes()
-    {
+    protected function getRoutes() {
+
         $results = array();
 
-        foreach ($this->routes as $route)
-        {
+        foreach ($this->routes as $route) {
             $results[] = $this->getRouteInformation($route);
         }
 
@@ -463,11 +472,12 @@ class ApiDocsGenerator {
     /**
      * Get before filters
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \Illuminate\Routing\Route $route
+     *
      * @return string
      */
-    protected function getBeforeFilters($route)
-    {
+    protected function getBeforeFilters($route) {
+
         $before = array_keys($route->beforeFilters());
 
         $before = array_unique(array_merge($before, $this->getPatternFilters($route)));
@@ -478,15 +488,15 @@ class ApiDocsGenerator {
     /**
      * Get all of the pattern filters matching the route.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \Illuminate\Routing\Route $route
+     *
      * @return array
      */
-    protected function getPatternFilters($route)
-    {
+    protected function getPatternFilters($route) {
+
         $patterns = array();
 
-        foreach ($route->methods() as $method)
-        {
+        foreach ($route->methods() as $method) {
             // For each method supported by the route we will need to gather up the patterned
             // filters for that method. We will then merge these in with the other filters
             // we have already gathered up then return them back out to these consumers.
@@ -501,22 +511,22 @@ class ApiDocsGenerator {
     /**
      * Get the route information for a given route.
      *
-     * @param  string  $name
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  string                    $name
+     * @param  \Illuminate\Routing\Route $route
+     *
      * @return array
      */
-    protected function getRouteInformation(Route $route)
-    {
+    protected function getRouteInformation(Route $route) {
 
-        $uri = implode('|', $route->methods()).' '.$route->uri();
+        $uri = implode('|', $route->methods()) . ' ' . $route->uri();
 
         return $this->filterRoute(array(
-            'host'   => $route->domain(),
-            'uri'    => $uri,
-            'name'   => $route->getName(),
+            'host' => $route->domain(),
+            'uri' => $uri,
+            'name' => $route->getName(),
             'action' => $route->getActionName(),
             'before' => $this->getBeforeFilters($route),
-            'after'  => $this->getAfterFilters($route),
+            'after' => $this->getAfterFilters($route),
             'prefix' => $route->getPrefix(),
             'method' => $route->methods()[0],
         ));
@@ -525,57 +535,61 @@ class ApiDocsGenerator {
     /**
      * Filter the route by URI and / or name.
      *
-     * @param  array  $route
+     * @param  array $route
+     *
      * @return array|null
      */
-    protected function filterRoute(array $route)
-    {
+    protected function filterRoute(array $route) {
 
-        if (! str_contains($route['prefix'], $this->prefix)) {
+        if (!str_contains($route['prefix'], $this->prefix)) {
             return null;
         }
 
         return $route;
     }
 
-        /**
+    /**
      * Get the pattern filters for a given URI and method.
      *
-     * @param  string  $uri
-     * @param  string  $method
+     * @param  string $uri
+     * @param  string $method
+     *
      * @return array
      */
-    protected function getMethodPatterns($uri, $method)
-    {
+    protected function getMethodPatterns($uri, $method) {
+
         return $this->router->findPatternFilters(Request::create($uri, $method));
     }
 
     /**
      * Get after filters
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \Illuminate\Routing\Route $route
+     *
      * @return string
      */
-    protected function getAfterFilters($route)
-    {
+    protected function getAfterFilters($route) {
+
         return implode(', ', array_keys($route->afterFilters()));
     }
 
     /**
-    * Converts a CamelCase String to Snake Case
-    *
-    * @param  string $input
-    * @return string
-    */
+     * Converts a CamelCase String to Snake Case
+     *
+     * @param  string $input
+     *
+     * @return string
+     */
 
-    private function convertToSnakeCase($input)
-    {
-      preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
-      $ret = $matches[0];
-      foreach ($ret as &$match) {
-        $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
-      }
-      return implode('_', $ret);
+    private function convertToSnakeCase($input) {
+
+        preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
+        $ret = $matches[0];
+        foreach ($ret as &$match) {
+            $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+        }
+
+        return implode('_', $ret);
     }
 
 }
