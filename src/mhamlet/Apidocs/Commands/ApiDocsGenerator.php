@@ -173,7 +173,7 @@ class ApiDocsGenerator {
             $docs = '';
         }
 
-        return app_path() . '/views/' . $docs . $viewType . '/' . $this->prefix . '/';
+        return app_path() . '/views/' . $viewType . '/' . $docs . $this->prefix . '/';
     }
 
     /**
