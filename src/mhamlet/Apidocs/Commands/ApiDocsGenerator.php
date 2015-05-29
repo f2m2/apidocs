@@ -381,7 +381,7 @@ class ApiDocsGenerator {
                     $sectionItem = str_replace('{function}', $endpoint['function'], $sectionItem);
                     $sectionItem = str_replace('{request-uri}', end($uri), $sectionItem);
 
-                    $params = $endpoint['docBlock']->getTagsByName('param');
+                    $params = $endpoint['docBlock']->getTagsByName('apiParam');
                     $parameters = '';
 
                     foreach ($params as $param) {
