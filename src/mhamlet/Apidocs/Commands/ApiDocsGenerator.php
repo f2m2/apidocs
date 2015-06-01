@@ -43,6 +43,9 @@ class ApiDocsGenerator {
      */
     public function __construct(Router $router) {
 
+        // Registering custom tags
+        DocBlock\Tag::registerTagHandler('apiParam', '\phpDocumentor\Reflection\DocBlock\Tag\ParamTag');
+
         $this->storagePath = storage_path() . '/templates/apidocs';
         $this->router = $router;
         $this->routes = $router->getRoutes();
