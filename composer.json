@@ -1,13 +1,13 @@
 {
-    "name": "f2m2/apidocs",
-    "description": "Laravel API Documentation Generator",
+    "name": "mhamlet/apidocs",
+    "description": "Laravel API Documentation Generator. Improved fork of f2m2/apidocs",
     "authors": [
         {
-            "name": "F2M2, Inc.",
-            "email": "hello@f2m2.com"
+            "name": "Hamlet Muradyan",
+            "email": "contact@hamletmuradyan.com"
         }
     ],
-    "homepage": "https://github.com/f2m2/apidocs",
+    "homepage": "https://github.com/mhamlet/apidocs",
     "license": "MIT",
     "require": {
         "php": ">=5.4.0",
@@ -16,8 +16,8 @@
     },
     "autoload": {
         "psr-0": {
-            "F2m2\\Apidocs": "src/"
+            "mhamlet\\Apidocs": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

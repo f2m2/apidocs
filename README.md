@@ -3,15 +3,17 @@
 
 This Laravel package provides an API Documentation generator based upon your Routes and Controller Method DocBlock comments.  
 
+Improved fork of f2m2/apidocs
+
 ## Installation
 
 #### Laravel 4.2 and Below
 
-Begin by installing this package through Composer. Edit your project's `composer.json` file to require `f2m2/apidocs`.
+Begin by installing this package through Composer. Edit your project's `composer.json` file to require `mhamlet/apidocs`.
 
     "require": {
         "laravel/framework": "4.2.*",
-        "f2m2/apidocs": "dev-master"
+        "mhamlet/apidocs": "dev-master"
     }
 
 Next, update Composer from the Terminal:
@@ -20,7 +22,7 @@ Next, update Composer from the Terminal:
 
 Once the packaage has installed, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
 
-    'F2m2\Apidocs\ApidocsServiceProvider',
+    'mhamlet\Apidocs\ApidocsServiceProvider',
 
 Run the `artisan` command from the Terminal to see the new `apidocs` command.
 
@@ -29,7 +31,7 @@ Run the `artisan` command from the Terminal to see the new `apidocs` command.
 
 Create a copy of the API Docs Config by running this `artisan` command:
 
-    php artisan config:publish f2m2/apidocs
+    php artisan config:publish mhamlet/apidocs
 
 
 Notes
