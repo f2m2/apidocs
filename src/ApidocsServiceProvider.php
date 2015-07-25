@@ -23,14 +23,13 @@ class ApidocsServiceProvider extends ServiceProvider {
 	}
 
 	public function boot(){
-		//$this->package('f2m2/apidocs');
 
 		$this->publishes([
-        	 __DIR__.'/config/config.php' => config_path('config.php'),
+        	 __DIR__.'/config/apidocs.php' => config_path('apidocs.php'),
     	]);
 
     	$this->mergeConfigFrom(
-    		__DIR__.'/config/config.php', 'config'
+    		__DIR__.'/config/apidocs.php', 'apidocs'
 		);
 	}
 
@@ -46,13 +45,11 @@ class ApidocsServiceProvider extends ServiceProvider {
 
 	private function registerApiDocsGeneratorCommand(){
 
-		$this->app['apidocs.generate'] = $this->app->share(function($app)
-        {
-            return $this->app->make('F2m2\Apidocs\Commands\ApiDocsGeneratorCommand');
+ 		$this->app->singleton('apidocs.generate', function ($app) {
+            return $app['F2m2\Apidocs\Commands\ApiDocsGeneratorCommand'];
         });
 
-
         $this->commands('apidocs.generate');
-	}
 
+	}
 }
