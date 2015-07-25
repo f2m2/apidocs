@@ -343,7 +343,7 @@ class ApiDocsGenerator {
 
         foreach ($endpoints as $endpoint_name => $array) {
 
-            $sectionName = str_replace('App\Http\s\\', '', $endpoint_name);
+            $sectionName = $this->normalizeSectionName($endpoint_name);
 
             $sectionItem    = '';
             $sectionHead    = '';
@@ -448,6 +448,22 @@ class ApiDocsGenerator {
         );
 
         return $data;
+    }
+
+    /**
+     * Retuns the last part of the section name
+     *
+     * @return string
+    */
+
+    protected function normalizeSectionName($name){
+
+        $sectionName = explode("\\", $name);
+        $c = count($sectionName)-1;
+        if ($c < 0) $c = 0;
+        $sectionName = $sectionName[$c];
+
+        return $sectionName;
     }
 
     /**
