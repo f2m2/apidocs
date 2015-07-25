@@ -5,13 +5,13 @@ This Laravel package provides an API Documentation generator based upon your Rou
 
 ## Installation
 
-#### Laravel 4.2 and Below
+#### Laravel 5.1
 
 Begin by installing this package through Composer. Edit your project's `composer.json` file to require `f2m2/apidocs`.
 
     "require": {
-        "laravel/framework": "4.2.*",
-        "f2m2/apidocs": "dev-master"
+        "laravel/framework": "~5.1",
+        "f2m2/apidocs": "1.0"
     }
 
 Next, update Composer from the Terminal:
@@ -30,6 +30,12 @@ Run the `artisan` command from the Terminal to see the new `apidocs` command.
 Create a copy of the API Docs Config by running this `artisan` command:
 
     php artisan config:publish f2m2/apidocs
+
+
+#### Laravel 4.2
+
+See installation:
+https://github.com/f2m2/apidocs/tree/1.0
 
 
 Notes
