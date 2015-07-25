@@ -15,8 +15,8 @@
         "phpdocumentor/reflection-docblock": "2.0.*@dev"
     },
     "autoload": {
-        "psr-0": {
-            "F2m2\\Apidocs": "src/"
+        "psr-4": {
+            "F2m2\\Apidocs\\": "src"
         }
     },
     "minimum-stability": "stable"
