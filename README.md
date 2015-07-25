@@ -11,7 +11,7 @@ Begin by installing this package through Composer. Edit your project's `composer
 
     "require": {
         "laravel/framework": "~5.1",
-        "f2m2/apidocs": "~2.0"
+        "f2m2/apidocs": "dev-master"
     }
 
 Next, update Composer from the Terminal:
