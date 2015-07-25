@@ -23,7 +23,15 @@ class ApidocsServiceProvider extends ServiceProvider {
 	}
 
 	public function boot(){
-		$this->package('f2m2/apidocs');
+		//$this->package('f2m2/apidocs');
+
+		$this->publishes([
+        	 __DIR__.'/config/config.php' => config_path('config.php'),
+    	]);
+
+    	$this->mergeConfigFrom(
+    		__DIR__.'/config/config.php', 'config'
+		);
 	}
 
 	/**

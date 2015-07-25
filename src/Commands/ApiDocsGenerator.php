@@ -20,6 +20,7 @@ class ApiDocsGenerator {
     protected $routes;
     protected $router;
 
+    protected $packageDir;
     protected $prefix;
     protected $dotPrefix;
     protected $storagePath;
@@ -44,6 +45,7 @@ class ApiDocsGenerator {
         $this->storagePath = storage_path(). '/templates/apidocs';
         $this->router = $router;
         $this->routes = $router->getRoutes();
+        $this->packageDir = __DIR__ . '/../';
     }
 
 
@@ -168,7 +170,7 @@ class ApiDocsGenerator {
             $docs = '';
         }
 
-        return app_path() . '/views/' . $viewType .'/' . $docs  . $this->prefix . '/';
+        return base_path() . '/resources' . '/views/' . $viewType .'/' . $docs  . $this->prefix . '/';
     }
 
     /**
@@ -183,25 +185,25 @@ class ApiDocsGenerator {
         /*
         * Docs Index
         */
-        $this->updatePrefixAndSaveTemplate('docs', Config::get('apidocs::config.index_template_path'));
+        $this->updatePrefixAndSaveTemplate('docs', $this->packageDir . Config::get('config.index_template_path'));
 
         /*
         * Default Layout
         */
 
-        $this->updatePrefixAndSaveTemplate('layouts', Config::get('apidocs::config.default_layout_template_path'));
+        $this->updatePrefixAndSaveTemplate('layouts', $this->packageDir . Config::get('config.default_layout_template_path'));
 
         /*
         * Head
         */
 
-        $this->updatePrefixAndSaveTemplate('includes', Config::get('apidocs::config.head_template_path'));
+        $this->updatePrefixAndSaveTemplate('includes', $this->packageDir . Config::get('config.head_template_path'));
 
         /*
         * Introduction
         */
 
-        $this->updatePrefixAndSaveTemplate('includes', Config::get('apidocs::config.introduction_template_path'));
+        $this->updatePrefixAndSaveTemplate('includes', $this->packageDir . Config::get('config.introduction_template_path'));
 
         // let's generate the body
         $content = $this->createContentForTemplate($endpoints);
@@ -234,7 +236,9 @@ class ApiDocsGenerator {
 
     protected function updatePrefixAndSaveTemplate($type, $filepath)
     {
+
         $content = File::get($filepath);
+
         $content = str_replace('{prefix}', $this->dotPrefix, $content);
         $newPath = $this->viewPathForType($type) . basename($filepath);
 
@@ -253,13 +257,13 @@ class ApiDocsGenerator {
 
         $type = 'layouts';
 
-        $path = Config::get('apidocs::config.default_layout_template_path');
+        $path = $this->packageDir . Config::get('config.default_layout_template_path');
 
         $file = File::get($path);
         $file = str_replace('{prefix}', $this->dotPrefix, $file);
         $file = str_replace('{navigation}', $content['navigation'], $file);
         $file = str_replace('{body-content}', $content['body-content'], $file);
-        $logo_path = str_replace('{prefix}', $this->dotPrefix, Config::get('apidocs::config.logo_path'));
+        $logo_path = str_replace('{prefix}', $this->dotPrefix, Config::get('config.logo_path'));
         $file = str_replace('{logo-path}', $logo_path, $file);
         $newPath = $this->viewPathForType($type) . basename($path);
 
@@ -275,9 +279,9 @@ class ApiDocsGenerator {
 
     protected function generateDirectoryStructure()
     {
-        $docs_views_path = app_path(). '/views/docs/' . $this->prefix;
-        $docs_includes_path = app_path(). '/views/includes/docs/' . $this->prefix;
-        $docs_layouts_path = app_path(). '/views/layouts/docs/' . $this->prefix;
+        $docs_views_path = base_path() . '/resources/views/docs/' . $this->prefix;
+        $docs_includes_path = base_path() . '/resources/views/includes/docs/' . $this->prefix;
+        $docs_layouts_path = base_path() . '/resources/views/layouts/docs/' . $this->prefix;
 
         $paths = [$docs_views_path, $docs_includes_path, $docs_layouts_path];
 
@@ -310,7 +314,7 @@ class ApiDocsGenerator {
         // create assets directory
         File::makeDirectory($destinationPath, $mode = 0777, true, true);
 
-         $targetPath = Config::get('apidocs::config.assets_path');
+         $targetPath = $this->packageDir . Config::get('config.assets_path');
          $directories = ['css', 'img', 'js'];
 
          foreach ($directories as $directory)
@@ -331,23 +335,27 @@ class ApiDocsGenerator {
 
      private function createContentForTemplate($endpoints = array())
      {
+
        if(!$endpoints) return FALSE;
 
         $navigation     = '';
         $body           = '';
 
         foreach ($endpoints as $endpoint_name => $array) {
+
+            $sectionName = str_replace('App\Http\s\\', '', $endpoint_name);
+
             $sectionItem    = '';
             $sectionHead    = '';
             $bodySection    = '';
             $navSections    = '';
             $navItems       = '';
 
-            $navSections .= File::get(config::get('apidocs::config.navigation_template_path'));
-            $navSections = str_replace('{column-title}', $endpoint_name, $navSections);
+            $navSections .= File::get($this->packageDir . config::get('config.navigation_template_path'));
+            $navSections = str_replace('{column-title}', $sectionName, $navSections);
 
-            $sectionHead .= File::get(config::get('apidocs::config.section_header_template_path'));
-            $sectionHead = str_replace('{column-name}', $endpoint_name, $sectionHead);
+            $sectionHead .= File::get($this->packageDir . config::get('config.section_header_template_path'));
+            $sectionHead = str_replace('{column-name}', $sectionName, $sectionHead);
             $sectionHead = str_replace('{main-description}', $endpoints[$endpoint_name]['description'], $sectionHead);
 
 
@@ -359,12 +367,12 @@ class ApiDocsGenerator {
 
                     $uri = explode(' ', $endpoint['uri']);
 
-                    $navItems .= File::get(config::get('apidocs::config.nav_items_template_path'));
-                    $navItems = str_replace('{column-title}',  $endpoint_name, $navItems);
+                    $navItems .= File::get($this->packageDir . config::get('config.nav_items_template_path'));
+                    $navItems = str_replace('{column-title}',  $sectionName, $navItems);
                     $navItems = str_replace('{function}', $endpoint['function'], $navItems);
 
-                    $sectionItem .= File::get(config::get('apidocs::config.body_content_template_path'));
-                    $sectionItem = str_replace('{column-name}', $endpoint_name, $sectionItem);
+                    $sectionItem .= File::get($this->packageDir . config::get('config.body_content_template_path'));
+                    $sectionItem = str_replace('{column-name}', $sectionName, $sectionItem);
                     $sectionItem = str_replace('{request-type}', $endpoint['method'], $sectionItem);
                     $sectionItem = str_replace('{endpoint-short-description}', $endpoint['docBlock']->getShortDescription(),      $sectionItem);
                     $sectionItem = str_replace('{endpoint-long-description}', $endpoint['docBlock']->getLongDescription(),      $sectionItem);
@@ -390,7 +398,7 @@ class ApiDocsGenerator {
                             $param_name .= '[]';
                         }
 
-                        $parameters .= File::get(config::get('apidocs::config.parameters_template_path'));
+                        $parameters .= File::get($this->packageDir . config::get('config.parameters_template_path'));
                         $parameters = str_replace('{param-name}', $param_name , $parameters);
                         $parameters = str_replace('{param-type}',  $param->getType(),  $parameters);
                         $parameters = str_replace('{param-desc}',  $param->getDescription(),  $parameters);
@@ -427,7 +435,7 @@ class ApiDocsGenerator {
 
             $navigation .= $navSections;
 
-            $bodySection .= File::get(config::get('apidocs::config.compile_content_template_path'));
+            $bodySection .= File::get($this->packageDir . config::get('config.compile_content_template_path'));
             $bodySection = str_replace('{section-header}',   $sectionHead, $bodySection);
             $bodySection = str_replace('{section-details}', $sectionItem, $bodySection);
 
