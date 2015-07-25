@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "F2m2\\Apidocs": "src/"
+            "F2m2\\Apidocs\\": "src"
         }
     },
     "minimum-stability": "stable"
