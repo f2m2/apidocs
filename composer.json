@@ -10,7 +10,7 @@
     "homepage": "https://github.com/f2m2/apidocs",
     "license": "MIT",
     "require": {
-        "illuminate/support": "~5.0",
+        "illuminate/support": "~5.0.0",
         "php" : ">=5.4.0",
         "phpdocumentor/reflection-docblock": "2.0.*@dev"
     },
