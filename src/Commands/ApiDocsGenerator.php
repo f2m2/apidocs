@@ -488,6 +488,8 @@ class ApiDocsGenerator {
      * @param  \Illuminate\Routing\Route  $route
      * @return string
      */
+    
+    /*
     protected function getBeforeFilters($route)
     {
         $before = array_keys($route->beforeFilters());
@@ -496,6 +498,7 @@ class ApiDocsGenerator {
 
         return implode(', ', $before);
     }
+    */
 
     /**
      * Get all of the pattern filters matching the route.
@@ -537,8 +540,8 @@ class ApiDocsGenerator {
             'uri'    => $uri,
             'name'   => $route->getName(),
             'action' => $route->getActionName(),
-            'before' => $this->getBeforeFilters($route),
-            'after'  => $this->getAfterFilters($route),
+            // 'before' => $this->getBeforeFilters($route),
+            // 'after'  => $this->getAfterFilters($route),
             'prefix' => $route->getPrefix(),
             'method' => $route->methods()[0],
         ));
@@ -578,10 +581,12 @@ class ApiDocsGenerator {
      * @param  \Illuminate\Routing\Route  $route
      * @return string
      */
+    /*
     protected function getAfterFilters($route)
     {
         return implode(', ', array_keys($route->afterFilters()));
     }
+    */
 
     /**
     * Converts a CamelCase String to Snake Case
