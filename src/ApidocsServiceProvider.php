@@ -1,7 +1,7 @@
-<?php namespace F2m2\Apidocs;
+<?php namespace Igorgavric\Apidocs;
 
 use Illuminate\Support\ServiceProvider;
-use F2m2\Apidocs\ApiDocsGeneratorCommand;
+use Igorgavric\Apidocs\ApiDocsGeneratorCommand;
 
 class ApidocsServiceProvider extends ServiceProvider {
 
