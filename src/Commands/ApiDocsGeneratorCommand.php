@@ -1,9 +1,9 @@
-<?php namespace F2m2\Apidocs\Commands;
+<?php namespace Igorgavric\Apidocs\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use F2m2\Apidocs\Commands\ApiDocsGenerator;
+use Igorgavric\Apidocs\Commands\ApiDocsGenerator;
 
 class ApiDocsGeneratorCommand extends Command {
 

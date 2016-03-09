@@ -1,13 +1,13 @@
 {
-    "name": "f2m2/apidocs",
+    "name": "igorgavric/apidocs",
     "description": "Laravel API Documentation Generator",
     "authors": [
         {
-            "name": "F2M2, Inc.",
-            "email": "hello@f2m2.com"
+            "name": "Igor",
+            "email": "gaxoman@gmail.com"
         }
     ],
-    "homepage": "https://github.com/f2m2/apidocs",
+    "homepage": "https://github.com/igorgavric/apidocs",
     "license": "MIT",
     "require": {
         "illuminate/support": "5.*",
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "F2m2\\Apidocs\\": "src/"
+            "Igorgavric\\Apidocs\\": "src/"
         }
     },
     "minimum-stability": "stable"
