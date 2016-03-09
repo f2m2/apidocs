@@ -7,17 +7,18 @@ Also works with controller comments - @param only.
 
 If you have global parameters that are passed to every action in the controller, you may define it in the controller doc block. With this, you do not need to add coomon parameters to every action in the controller.
 
-##### DocBlock Example
+##### Controller DocBlock Example
 Below is a controller docBlock example.
 
-/**
- * Class ApiDemoController
- *
- * @param  int  $major  The major beacon of the restaurant
- * @param  mixed  $app_version  Application version
- *
- * @package App\Http\Controllers\Api
- */
+    /**
+    * Class ApiDemoController
+    *
+    * @param  int  $major  The major beacon of the restaurant
+    * @param  mixed  $app_version  Application version
+    *
+    * @package App\Http\Controllers\Api
+    */
+
 
 ## Installation
 
