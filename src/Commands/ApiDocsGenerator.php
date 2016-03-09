@@ -145,6 +145,7 @@ class ApiDocsGenerator {
 
             $route['function'] = $methodName;
             $route['docBlock'] = $docBlock;
+            $route['docBlock1'] = $docBlock;
 
             array_push($endpoints["${endpointName}"]['methods'], $route);
         }
