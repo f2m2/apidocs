@@ -46,7 +46,7 @@ class ApidocsServiceProvider extends ServiceProvider {
 	private function registerApiDocsGeneratorCommand(){
 
  		$this->app->singleton('apidocs.generate', function ($app) {
-            return $app['F2m2\Apidocs\Commands\ApiDocsGeneratorCommand'];
+            return $app['Igorgavric\Apidocs\Commands\ApiDocsGeneratorCommand'];
         });
 
         $this->commands('apidocs.generate');
