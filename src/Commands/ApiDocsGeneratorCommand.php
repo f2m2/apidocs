@@ -49,7 +49,7 @@ class ApiDocsGeneratorCommand extends Command {
 	public function fire()
 	{
 
-       $prefix = is_null($this->argument('prefix')) ? $this->ask('What is the API Prefix?  i.e. "api/v1"') : $this->argument('prefix');
+       $prefix = is_null($this->argument('prefix')) ? $this->ask('What is the API Prefix?  i.e. "api/v2"') : $this->argument('prefix');
        $this->info('Generating ' . $prefix . ' API Documentation.');
 
 	   // generate the docs
@@ -78,7 +78,7 @@ class ApiDocsGeneratorCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('prefix', InputArgument::OPTIONAL, 'Api Prefix (i.e. "api/v1"'),
+			array('prefix', InputArgument::OPTIONAL, 'Api Prefix (i.e. "api/v2"'),
 		);
 	}
 
