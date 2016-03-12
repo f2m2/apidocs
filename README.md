@@ -9,8 +9,7 @@ This Laravel package provides an API Documentation generator based upon your Rou
 
 Begin by installing this package through Composer. Edit your project's `composer.json` file to require `f2m2/apidocs`.
 
-    "require": {
-        "laravel/framework": "~5.0.*",
+    "require-dev": {
         "f2m2/apidocs": "dev-master"
     }
 
