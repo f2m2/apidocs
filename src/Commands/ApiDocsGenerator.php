@@ -132,6 +132,7 @@ class ApiDocsGenerator {
 
             $reflector = new ReflectionClass($class);
             $docBlock = new DocBlock($reflector->getMethod($methodName));
+            $controllerDocBlock = new DocBlock($reflector);
 
             $endpointNameCamelCase= $this->convertToSnakeCase($endpointName);
             $endpointNameCamelCasePlural = $this->convertToSnakeCase($endpointName) . 's';
@@ -143,6 +144,7 @@ class ApiDocsGenerator {
 
             $route['function'] = $methodName;
             $route['docBlock'] = $docBlock;
+            $route['controllerDocBlock'] = $controllerDocBlock;
 
             array_push($endpoints["${endpointName}"]['methods'], $route);
         }
@@ -378,7 +380,11 @@ class ApiDocsGenerator {
                     $sectionItem = str_replace('{function}', $endpoint['function'], $sectionItem);
                     $sectionItem = str_replace('{request-uri}',  end($uri),  $sectionItem);
 
-                    $params =  $endpoint['docBlock']->getTagsByName('param');
+                    $method_params =  $endpoint['docBlock']->getTagsByName('param');
+                    $controller_params =  $endpoint['controllerDocBlock']->getTagsByName('param');
+
+                    $params = array_merge($method_params, $controller_params);
+
                     $parameters = '';
 
                     foreach ($params as $param)
