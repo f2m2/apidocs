@@ -364,7 +364,6 @@ class ApiDocsGenerator {
                 foreach ($array['methods'] as $key => $value) {
 
                     $endpoint = $value;
-
                     $uri = explode(' ', $endpoint['uri']);
 
                     $navItems .= File::get(config::get('apidocs.nav_items_template_path'));
@@ -389,11 +388,11 @@ class ApiDocsGenerator {
 
                     foreach ($params as $param)
                     {
+
                         $param_name = str_replace($param->getDescription(), '', $param->getContent());
                         $param_name = str_replace($param->getType(), '', $param_name);
                         $param_name = str_replace(' ', '', $param_name);
                         $param_name = urldecode($param_name);
-
                         if($param_name[0] == '$'){
                             $param_name = str_replace('$', '', $param_name);
                         }
@@ -402,13 +401,24 @@ class ApiDocsGenerator {
                             $param_name .= '[]';
                         }
 
+                        $li_id = $endpoint['function'].'-'.$param_name;
+
+
+                        preg_match_all("/(API:)\w+(([\s]|[\n])){0,1}/", $param->getDescription(), $output_array);
+                        $configs = $output_array[0];
                         $parameters .= File::get(config::get('apidocs.parameters_template_path'));
+
+                        $parameters = str_replace('{li-id}', $li_id, $parameters);
                         $parameters = str_replace('{param-name}', $param_name , $parameters);
                         $parameters = str_replace('{param-type}',  $param->getType(),  $parameters);
                         $parameters = str_replace('{param-desc}',  $param->getDescription(),  $parameters);
 
                         if(strpos(strtolower($param_name),'password') !== false ){
                             $parameters = str_replace('type="text" class="parameter-value-text" name="' . $param_name . '"', 'type="password" class="parameter-value-text" name="'. $param_name . '"' , $parameters);
+                        }
+
+                        if(strpos(strtolower($param_name),'file') !== false ){
+                            $parameters = str_replace('type="text" class="parameter-value-text" name="' . $param_name . '"', 'type="file" class="parameter-value-text" name="'. $param_name . '"' , $parameters);
                         }
                     }
 
@@ -426,6 +436,17 @@ class ApiDocsGenerator {
                               </li>
                               {request-parameters}
                             </ul>', '', $sectionItem);
+
+
+                    }
+
+                    foreach ($configs as $conf) {
+                        $prop = explode(':', $conf)[1];
+                        switch ($prop) {
+                            case 'HIDDEN':
+                                $sectionItem = str_replace('id="'.$li_id.'"', 'id="'.$li_id.'" style="display:none"', $sectionItem);
+                                break;
+                        }
                     }
 
                 }
@@ -494,7 +515,7 @@ class ApiDocsGenerator {
      * @param  \Illuminate\Routing\Route  $route
      * @return string
      */
-    
+
     /*
     protected function getBeforeFilters($route)
     {
