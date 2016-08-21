@@ -105,7 +105,14 @@ $(function(){
 		    },
 	        error: function (response, status, request)
 	        {
-	        	body = JSON.stringify(JSON.parse(response.responseText), undefined, 4);
+	        	enableBtn(btn);
+
+	        	try {
+		        	body = JSON.stringify(JSON.parse(response.responseText), undefined, 4);
+	        	} catch (e){
+	        		body = response.responseText;
+	        	}
+
 	        	statusCode = response.status;
 	        	statusText = response.statusText;
 	        	responseHeaders = response.getAllResponseHeaders();
@@ -114,8 +121,8 @@ $(function(){
 	        }
 		});
 
-		function enableBtn(btn){
-
+		function enableBtn(btn)
+		{
 			btn.prop('disabled', false);
 			btn.val('Generate Example Response');
 		}

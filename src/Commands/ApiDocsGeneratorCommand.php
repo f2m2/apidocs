@@ -48,9 +48,20 @@ class ApiDocsGeneratorCommand extends Command {
 	 */
 	public function fire()
 	{
-
-       $prefix = is_null($this->argument('prefix')) ? $this->ask('What is the API Prefix?  i.e. "api/v1"') : $this->argument('prefix');
-       $this->info('Generating ' . $prefix . ' API Documentation.');
+		if (!is_null($this->argument('prefix'))) {
+			// Command line argument takes 1st precedence.
+			$prefix = $this->argument('prefix');
+		}
+		else {
+			// Check for an environment variable, so you don't have to type
+			// the prefix in each time. Otherwise, ask them.
+			if (!empty(getenv('APIDOCS_PREFIX'))) {
+				$prefix = getenv('APIDOCS_PREFIX');
+			} else {
+				$prefix = $this->ask('What is the API Prefix?  i.e. "api/v1"');
+			}
+		}
+		$this->info('Generating ' . $prefix . ' API Documentation.');
 
 	   // generate the docs
 	   $this->generator->make($prefix);
