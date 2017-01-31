@@ -15,7 +15,7 @@ Begin by installing this package through Composer. Edit your project's `composer
 
 Next, update Composer from the Terminal:
 
-    composer update --dev
+    composer update
 
 Once the packaage has installed, the final step is to add the service provider. Open `config/app.php`, and add a new item to the providers array.
 
@@ -46,6 +46,16 @@ Create a prefix for your routes with an API Version.  i.e. 'api/v1
     Route::group(['prefix' => 'api/v1'], function(){
          // ...
     });
+    
+########
+Laravel 5.4 defaults to api prefix (`Route::prefix('api')`).
+If your routes/api.php looks like this...
+
+    Route::group(['prefix' => 'v1'], function(){
+         // ...
+    });
+... then the route for the generate command would be `api/v1`
+Otherwise it will be just `api`
 
 ##### DocBlock Example
 Below is a docBlock example.
