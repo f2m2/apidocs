@@ -19,5 +19,12 @@
             "F2m2\\Apidocs\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "F2m2\\Apidocs\\ApidocsServiceProvider"
+            ]
+        }
+    }
 }
