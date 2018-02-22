@@ -46,7 +46,7 @@ class ApiDocsGeneratorCommand extends Command {
 	 *
 	 * @return mixed
 	 */
-	public function fire()
+	public function handle()
 	{
 		if (!is_null($this->argument('prefix'))) {
 			// Command line argument takes 1st precedence.
