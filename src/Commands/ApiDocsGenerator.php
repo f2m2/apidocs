@@ -21,6 +21,7 @@ class ApiDocsGenerator {
     protected $router;
 
     protected $prefix;
+    protected $secure;
     protected $dotPrefix;
     protected $storagePath;
 
@@ -54,9 +55,10 @@ class ApiDocsGenerator {
      * @return void
      */
 
-    public function make($prefix)
+    public function make($prefix, $secure)
     {
         $this->prefix = $prefix;
+        $this->secure = $secure;
         $this->dotPrefix = str_replace('/', '.', $this->prefix);
 
         $this->routes = $this->getRoutes();
@@ -196,7 +198,6 @@ class ApiDocsGenerator {
         /*
         * Head
         */
-
         $this->updatePrefixAndSaveTemplate('includes', Config::get('apidocs.head_template_path'));
 
         /*
@@ -238,7 +239,11 @@ class ApiDocsGenerator {
     {
 
         $content = File::get($filepath);
-
+        if ($this->secure) {
+            $content = str_replace('{secure}', 'secure_', $content);
+        }else{
+            $content = str_replace('{secure}', '', $content);
+        }
         $content = str_replace('{prefix}', $this->dotPrefix, $content);
         $newPath = $this->viewPathForType($type) . basename($filepath);
 
