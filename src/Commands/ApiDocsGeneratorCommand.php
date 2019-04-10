@@ -7,102 +7,111 @@ use F2m2\Apidocs\Commands\ApiDocsGenerator;
 
 class ApiDocsGeneratorCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'apidocs:generate';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'apidocs:generate';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Generates API Documentation.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Generates API Documentation.';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var DocsGenerator
-	 */
+    /**
+     * The console command description.
+     *
+     * @var DocsGenerator
+     */
 
-	protected $generator;
+    protected $generator;
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(ApiDocsGenerator $generator)
-	{
-		parent::__construct();
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct(ApiDocsGenerator $generator)
+    {
+        parent::__construct();
 
-		$this->generator = $generator;
-	}
+        $this->generator = $generator;
+    }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function handle()
-	{
-		if (!is_null($this->argument('prefix'))) {
-			// Command line argument takes 1st precedence.
-			$prefix = $this->argument('prefix');
-		}
-		else {
-			// Check for an environment variable, so you don't have to type
-			// the prefix in each time. Otherwise, ask them.
-			if (!empty(getenv('APIDOCS_PREFIX'))) {
-				$prefix = getenv('APIDOCS_PREFIX');
-			} else {
-				$prefix = $this->ask('What is the API Prefix?  i.e. "api/v1"');
-			}
-		}
-		$this->info('Generating ' . $prefix . ' API Documentation.');
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        if (!is_null($this->argument('prefix'))) {
+            // Command line argument takes 1st precedence.
+            $prefix = $this->argument('prefix');
+        }
+        else {
+            // Check for an environment variable, so you don't have to type
+            // the prefix in each time. Otherwise, ask them.
+            if (!empty(getenv('APIDOCS_PREFIX'))) {
+                $prefix = getenv('APIDOCS_PREFIX');
+            } else {
+                $prefix = $this->ask('What is the API Prefix?  i.e. "api/v1"');
+            }
+        }
+        $this->info('Generating ' . $prefix . ' API Documentation.');
 
-	   // generate the docs
-	   $this->generator->make($prefix);
+        if (!is_null($this->argument('secure'))) {
+            // Command line argument takes 1st precedence.
+            $secure = true;
+        }else{
+            $secure = false;
+        }
 
-	   $dot_prefix = str_replace('/', '.', $prefix);
+        
+       // generate the docs
+        $this->generator->make($prefix, $secure);
+
+       $dot_prefix = str_replace('/', '.', $prefix);
 
        $this->info('API Docs have been generated!');
        $this->info('');
        $this->info('Add the following Route to "app/routes.php" > ');
 
-		// All done!
+        // All done!
         $this->info(sprintf(
             "\n %s" . PHP_EOL,
             "Route::get('docs', function(){
-            	return View::make('docs." . $dot_prefix . ".index');
+                return View::make('docs." . $dot_prefix . ".index');
             });"
         ));
-	}
+    }
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			array('prefix', InputArgument::OPTIONAL, 'Api Prefix (i.e. "api/v1"'),
-		);
-	}
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            array('prefix', InputArgument::OPTIONAL, 'Api Prefix (i.e. "api/v1"'),
+            array('secure', InputArgument::OPTIONAL, 'Enable the secure asset'),
+        );
+    }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	// protected function getOptions()
-	// {
-	// 	return array(
-	// 		array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-	// 	);
-	// }
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    // protected function getOptions()
+    // {
+    //  return array(
+    //      array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
+    //  );
+    // }
 
 }
